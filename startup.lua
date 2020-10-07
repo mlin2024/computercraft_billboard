@@ -15,7 +15,11 @@ n = colors.gray
 o = colors.lightGray
 p = colors.white
 rednet.open("top")
+while true do
 id, message = rednet.receive()
+if message == "shutdown" then
+	break
+end
 id2, inputspeed = rednet.receive()
 speed = 1.1 - (inputspeed/10)
 array = {}
@@ -23,7 +27,7 @@ for ind = 1, string.len(message) do
 	array[ind] = string.sub(message, ind, ind)
 end
 arraylen = table.getn(array)
-if id == 41 then
+if id == 41 and id2 == 41 then
 	if(os.getComputerID()%2==1) then
 		sleep((os.getComputerID()-17) * 2 * speed)
 		for ind = 1, arraylen, 1 do
@@ -1910,5 +1914,6 @@ if id == 41 then
 			end
 		end
 	end
+end
 end
 rednet.close()
